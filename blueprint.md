@@ -4,11 +4,52 @@ This document serves as the single source of truth for the application's archite
 
 ## 1. Overview
 
-*(Awaiting user input for project overview)*
+A web-based budget tool for DBCE, designed with the "Paper Dashboard" aesthetic. It interfaces with a Supabase backend and provides a clean, modern dashboard for managing budget-related data.
 
 ---
 
-## 2. Database Schema (Supabase)
+## 2. Implemented Features
+
+### "Paper Dashboard" Design
+
+The application's visual identity is based on the "Paper Dashboard React" template by Creative Tim. This includes:
+- A dark sidebar for navigation.
+- A light, textured main content area.
+- A card-based layout for displaying data.
+
+### Icon-Driven Sidebar
+
+The sidebar has been transformed into a full navigation menu:
+- **Icons:** Uses the `react-icons` library for clear, intuitive navigation links (e.g., Productions, Settings).
+- **Active State:** The currently selected page is highlighted.
+- **Database Status:** Retains the at-a-glance database connection indicator at the bottom.
+
+### Dashboard View
+
+The main content area is designed as a dashboard hub:
+- **Header:** Includes a title ("Dashboard") and a control area with a search bar and icons for notifications and settings.
+- **Stat Cards:** A grid of four placeholder "Stat Cards" displays key metrics with icons, titles, values, and footers, mimicking the reference design.
+
+---
+
+## 3. Styling & Component Libraries
+
+- **React-Bootstrap:** A component library for building responsive and modern UIs.
+- **React-Icons:** For iconography throughout the application.
+
+### Design System ("Paper Dashboard")
+
+- **Color Palette:**
+  - Sidebar Background: `#1E1E2D`
+  - Content Background: `#F4F3EF`
+  - Text (Dark): `#333`
+  - Text (Light): `#fff`
+- **Typography:**
+  - Primary Font: "Helvetica Neue", Arial, sans-serif.
+
+---
+
+## 4. Database Schema (Supabase)
 
 This section outlines the database structure for the project. The database is a Supabase PostgreSQL instance.
 
@@ -85,3 +126,40 @@ This section outlines the database structure for the project. The database is a 
 | venue_rental | numeric | YES | 0 |
 | extra_show_fee | numeric | YES | 0 |
 | hourly_extra_rate | numeric | YES | 0 |
+
+---
+
+## 5. Development Plan: Productions, Shows, and Budgets
+
+This section outlines the development plan for the core functionality of the application.
+
+### Phase 1: Production Management
+
+- **Goal:** Create, read, and update productions.
+- **UI:**
+    - Display productions as individual cards on the "Productions" page.
+    - Each card will show the production's name and other key details.
+    - Include a "+" button to add a new production.
+    - Each production card will have an "Edit" button.
+
+### Phase 2: Show Management
+
+- **Goal:** Manage shows associated with each production.
+- **UI:**
+    - Inside each production card, display a list of its shows.
+    - Each show will have its own set of controls: "Edit" and "Remove".
+    - An "Add Show" button will be available within each production card.
+- **Core Logic:**
+    - When a new show is created, a corresponding budget will be automatically generated.
+    - This budget will be a direct copy of the master list of categories from the `dbce_categories` table, with each category becoming a line item in the new budget.
+
+### Phase 3: Interactive Budget View
+
+- **Goal:** Provide an editable, spreadsheet-like interface for managing a show's budget.
+- **UI:**
+    - Clicking a "Budget" button on a show will open a new view.
+    - This view will resemble an Excel spreadsheet, with rows representing budget line items.
+    - All fields in a budget line (e.g., unit, number, rate) will be editable.
+    - The budget view will include options to add or remove line items.
+- **Data Flow:**
+    - All changes made in the budget view will be saved back to the `dbce_show_budget_item` table in real-time or via a "Save" button.

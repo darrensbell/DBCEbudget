@@ -1,0 +1,71 @@
+.add-item-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+
+.add-item-form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}
+  
+  .add-item-form .form-control, .add-item-form-grid .form-control {
+    flex: 1;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    border-radius: 20px;
+  }
+
+  .btn-round {
+    border-radius: 50px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+  
+  .btn-icon {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50% !important;
+    margin: 0 3px;
+  }
+  
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .card-title {
+    color: #333;
+  }
+
+  .text-primary {
+    color: #51cbce !important;
+  }
+
+  .alert {
+    border-radius: 15px;
+  }
+  
+  /* Make tables look like paper dashboard tables */
+.table > thead > tr > th {
+    border-bottom-width: 1px;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #9A9A9A;
+    font-weight: 400;
+    padding-bottom: 5px;
+}
+
+.table > tbody > tr > td {
+    padding: 12px 8px;
+    vertical-align: middle;
+    border-top: 1px solid #ddd;
+}
+
+.text-right {
+    text-align: right;
+}

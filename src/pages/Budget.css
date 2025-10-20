@@ -1,0 +1,79 @@
+.budget-container {
+    padding: 1rem;
+    width: 100%;
+}
+
+.budget-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.budget-table-container {
+    overflow-x: auto;
+    width: 100%;
+}
+
+.budget-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem; /* Smaller font */
+}
+
+.budget-table th,
+.budget-table td {
+    padding: 0.5rem 0.75rem; /* Reduced padding */
+    vertical-align: middle;
+    text-align: left;
+    border: 1px solid #dee2e6; /* Excel-like grid lines */
+}
+
+.budget-table thead th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.summary-group-header td {
+    background-color: #343a40;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.department-header td {
+    background-color: #e9ecef;
+    font-weight: bold;
+}
+
+.budget-table tbody tr:hover {
+    background-color: #f1f3f5;
+}
+
+.delete-icon {
+    color: #dc3545;
+    cursor: pointer;
+    text-align: center;
+}
+.delete-icon:hover {
+    color: #a71d2a;
+}
+
+.editable-cell input,
+.editable-cell select {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.9rem;
+}
+
+.grand-total-row td {
+    font-size: 1.1rem;
+    font-weight: bold;
+    background-color: #f8f9fa;
+}
+
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 1.5rem;
+}
