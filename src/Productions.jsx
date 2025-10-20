@@ -72,10 +72,11 @@ function Productions() {
       const { data: newShow, error: insertError } = await supabase.from('dbce_show').insert(showPayload).select().single();
       if (insertError) { console.error('Error creating show', insertError); setError('Failed to create show.'); return; }
 
-      const { data: cats, error: catError } = await supabase.from('dbce_categories').select('*');
+      // Fetch ALL categories by overriding the default 1000-row limit.
+      const { data: cats, error: catError } = await supabase.from('dbce_categories').select('*').limit(5000);
       if (catError) { console.error('Error fetching categories', catError); setError('Show created, but budget generation failed.'); return; }
 
-      const budgetItems = cats.map(c => ({ show_id: newShow.id, summary_group: c.summary_group, department: c.department, sub_department: c.sub_department, line_item: c.line_item, unit: 'unit', number: 1, rate: 0, notes: c.notes }));
+      const budgetItems = cats.map(c => ({ show_id: newShow.id, summary_group: c.summary_group, department: c.department, sub_department: c.sub_department, line_item: c.line_item, unit: 'unit', number: 1, rate: 0 }));
       const { error: budgetError } = await supabase.from('dbce_show_budget_item').insert(budgetItems);
       if (budgetError) { console.error('Error creating budget items', budgetError); setError('Show created, but budget generation failed.'); }
     }
@@ -175,7 +176,7 @@ function Productions() {
       </div>
 
       <ProductionModal show={showProductionModal} onHide={closeProductionModal} onSave={handleSaveProduction} production={editingProduction} />
-      <ShowModal show={showShowModal} onHide={closeShowModal} onSave={handleSaveShow} showData={editingShow} productionId={activeProductionId} />
+      <ShowModal show={showShowModal} onHide={closeShowModal} onSave={handleSaveShow} existingShow={editingShow} productionId={activeProductionId} />
       <ConfirmModal 
         show={showConfirmModal} 
         onHide={closeConfirmModal} 
