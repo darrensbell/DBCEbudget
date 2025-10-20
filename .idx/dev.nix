@@ -8,7 +8,11 @@
     pkgs.nodejs_20
   ];
   # Sets environment variables in the workspace
-  env = {};
+  env = {
+    SUPABASE_URL = "https://cimgeatqjoltbbeifnmi.supabase.co";
+    SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpbWdlYXRxam9sdGJiZWlmbm1pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUxNzc0NzAsImV4cCI6MjA3MDc1MzQ3MH0.Du6LIN6i9v3Hly8tMC3SN5KLxv-8giiYgLhrI4y0hZc";
+    SUPABASE_SERVICE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpbWdlYXRxam9sdGJiZWlmbm1pIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NTE3NzQ3MCwiZXhwIjoyMDcwNzUzNDcwfQ.E5A3GySnzAXzIA5CUP29UzlKtSZiuCW7xOToKQqnPsQ";
+  };
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
     extensions = [
