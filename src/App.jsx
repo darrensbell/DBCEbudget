@@ -1,10 +1,10 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Sidebar from './components/Sidebar';
-import Productions from './Productions';
-import Settings from './Settings';
-import Budget from './pages/Budget';
-import './HomePage.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Sidebar from "./components/Sidebar";
+import Productions from "./Productions";
+import Settings from "./Settings";
+import Budget from "./pages/Budget";
+import "./HomePage.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (

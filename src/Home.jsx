@@ -1,5 +1,13 @@
-import React from 'react';
-import { FaSearch, FaBell, FaCog, FaGlobe, FaMoneyBill, FaExclamationTriangle, FaHeart } from 'react-icons/fa';
+import React from "react";
+import {
+  FaSearch,
+  FaBell,
+  FaCog,
+  FaGlobe,
+  FaMoneyBill,
+  FaExclamationTriangle,
+  FaHeart,
+} from "react-icons/fa";
 
 const StatCard = ({ icon, title, value, footerIcon, footerText }) => (
   <div className="stat-card">
@@ -35,10 +43,30 @@ function Home() {
       </div>
 
       <div className="card-deck">
-        <StatCard icon={<FaGlobe />} title="Capacity" value="150GB" footerText="Update Now" />
-        <StatCard icon={<FaMoneyBill />} title="Revenue" value="$1,345" footerText="Last day" />
-        <StatCard icon={<FaExclamationTriangle />} title="Errors" value="23" footerText="In the last hour" />
-        <StatCard icon={<FaHeart />} title="Followers" value="+45K" footerText="Update now" />
+        <StatCard
+          icon={<FaGlobe />}
+          title="Capacity"
+          value="150GB"
+          footerText="Update Now"
+        />
+        <StatCard
+          icon={<FaMoneyBill />}
+          title="Revenue"
+          value="$1,345"
+          footerText="Last day"
+        />
+        <StatCard
+          icon={<FaExclamationTriangle />}
+          title="Errors"
+          value="23"
+          footerText="In the last hour"
+        />
+        <StatCard
+          icon={<FaHeart />}
+          title="Followers"
+          value="+45K"
+          footerText="Update now"
+        />
       </div>
     </>
   );

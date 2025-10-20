@@ -1,7 +1,7 @@
 /* src/HomePage.css */
 
 body {
-  background-color: #F4F3EF;
+  background-color: #f4f3ef;
   font-family: "Helvetica Neue", Arial, sans-serif;
   color: #333;
 }
@@ -13,10 +13,10 @@ body {
 .sidebar-container {
   width: 260px;
   min-height: 100vh;
-  background-color: #1E1E2D;
+  background-color: #1e1e2d;
   color: #fff;
   padding: 20px;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar h5 {
@@ -43,7 +43,8 @@ body {
   transition: background-color 0.2s ease-in-out;
 }
 
-.sidebar-nav li:hover, .sidebar-nav li.active {
+.sidebar-nav li:hover,
+.sidebar-nav li.active {
   background-color: #333;
 }
 
@@ -135,7 +136,7 @@ body {
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .stat-card .card-body {
