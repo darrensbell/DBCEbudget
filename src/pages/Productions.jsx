@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { supabase } from "./lib/supabaseClient";
+import { supabase } from "../lib/supabaseClient";
 import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
-import ProductionModal from "./components/ProductionModal";
-import ShowModal from "./components/ShowModal";
-import ConfirmModal from "./components/ConfirmModal";
-import "./Productions.css";
+import ProductionModal from "../components/ProductionModal";
+import ShowModal from "../components/ShowModal";
+import ConfirmModal from "../components/ConfirmModal";
+import "../styles/Productions.css";
 
 function Productions() {
   const [productions, setProductions] = useState([]);

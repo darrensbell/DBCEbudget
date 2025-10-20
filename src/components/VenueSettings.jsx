@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
 import { FaPlus, FaEdit, FaTrash, FaSave } from "react-icons/fa";
-import "./Settings.css";
+import "../styles/Settings.css";
 
 function VenueSettings() {
   const [venues, setVenues] = useState([]);

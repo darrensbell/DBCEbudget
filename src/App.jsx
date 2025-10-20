@@ -1,14 +1,14 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
-import Productions from "./Productions";
-import Settings from "./Settings";
+import Productions from "./pages/Productions";
+import Settings from "./pages/Settings";
 import Budget from "./pages/Budget";
-import "./HomePage.css";
+import "./styles/HomePage.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <div className="app-container">
         <div className="sidebar-container">
           <Sidebar />

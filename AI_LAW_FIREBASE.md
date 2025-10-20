@@ -127,6 +127,16 @@ Before publishing or deploying the application, the following steps must be comp
 3.  **Build Project:** Run `npm run build` to create a production-ready build.
 4.  **Deploy:** Deploy the application using the appropriate Firebase command.
 
+## 12. Version Control and Backup
+
+Upon the creation of a new application version, the following steps are mandatory to ensure a clean, tagged backup is created on GitHub:
+
+1.  **Update `package.json`:** The `version` field in `package.json` must be updated to the new version number.
+2.  **Commit Changes:** All changes related to the new version must be committed to the local Git repository. The commit message must follow the format: `Version X.Y.Z`, where `X.Y.Z` is the new version number.
+3.  **Push to GitHub:** The new commit must be pushed to the `main` branch of the `origin` remote.
+
+This process ensures that every version is securely backed up and can be easily restored.
+
 By operating in this workspace, you agree to these terms. Failure to comply is a defect. You must stop and await instruction if compliance is not possible within these constraints.
 
 Next step when you are ready: add a pre-commit check or CI step that scans for the compliance comment and basic caps, then block merges that violate the law.

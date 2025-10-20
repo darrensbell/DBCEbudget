@@ -1,6 +1,6 @@
 import React from "react";
-import VenueSettings from "./components/VenueSettings";
-import CategorySettings from "./components/CategorySettings";
+import VenueSettings from "../components/VenueSettings";
+import CategorySettings from "../components/CategorySettings";
 
 function Settings() {
   return (

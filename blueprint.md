@@ -200,3 +200,17 @@ To ensure code quality and a stable deployment, a pre-publishing checklist has b
 2.  **Run Prettier:** Execute `npx prettier . --write`.
 
 This process is enforced to maintain a high standard of code quality for all deployments.
+
+---
+
+## 8. Version Control and Backup
+
+To ensure project stability and maintain a clear history of changes, a strict version control and backup process is in place. For every new version of the application, a clean, tagged backup is automatically created on GitHub.
+
+### The Process
+
+1.  **Update Version:** The `version` number in the `package.json` file is incremented.
+2.  **Commit:** All changes are committed to the local Git repository with a message formatted as `Version X.Y.Z`.
+3.  **Push to GitHub:** The new commit is pushed to the `main` branch of the project's GitHub repository.
+
+This automated process guarantees that every version is securely backed up and easily accessible.

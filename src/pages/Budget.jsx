@@ -1,10 +1,10 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, Fragment } from "react";
 import { useParams, Link } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 import { FaArrowLeft, FaTrash, FaPlus } from "react-icons/fa";
 import EditableCell from "../components/EditableCell";
-import { formatCurrency } from "../utils/currency";
-import "./Budget.css";
+import { formatCurrency } from "../lib/currency";
+import "../styles/Budget.css";
 
 const detailsOptions = ["NULL", "DAYS", "WEEKS", "ALLOWANCE", "BUYOUT", "FEE"];
 
@@ -165,7 +165,7 @@ function Budget() {
             {groupOrder.map((summaryGroup) => {
               const groupData = groupedBudget[summaryGroup];
               return (
-                <>
+                <Fragment key={summaryGroup}>
                   {groupData.items.map((item) => (
                     <tr key={item.id}>
                       <td className="text-center">
@@ -234,7 +234,7 @@ function Budget() {
                       {formatCurrency(groupData.subtotal)}
                     </td>
                   </tr>
-                </>
+                </Fragment>
               );
             })}
           </tbody>

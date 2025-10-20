@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { formatCurrency } from "../utils/currency";
+import { formatCurrency } from "../lib/currency";
 
 function EditableCell({ value, onSave, type = "text", options = [] }) {
   const [editing, setEditing] = useState(false);
