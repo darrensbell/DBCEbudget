@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
-import { FaTable, FaCog } from "react-icons/fa";
+import { FaTable, FaCog, FaDatabase } from "react-icons/fa";
 
 function Sidebar() {
   const [dbStatus, setDbStatus] = useState({
@@ -52,16 +52,23 @@ function Sidebar() {
       </nav>
 
       <div className="db-status">
-        <div>
-          <span
-            className={`connection-dot ${dbStatus.isConnected ? "bg-success" : "bg-danger"}`}
-          ></span>
-          <span>Database Connection</span>
+        <div className="db-status-header">
+          <FaDatabase className={`db-icon ${dbStatus.isConnected ? "connected" : "disconnected"}`} />
+          <span>Database</span>
         </div>
-        {dbStatus.lastConnected && (
-          <small className="text-muted">
-            Last updated: {dbStatus.lastConnected.toLocaleString()}
-          </small>
+        {dbStatus.isConnected && dbStatus.lastConnected && (
+          <div className="db-status-details">
+            <span className="connection-dot bg-success"></span>
+            <small className="text-muted">
+              Updated: {dbStatus.lastConnected.toLocaleTimeString()}
+            </small>
+          </div>
+        )}
+        {!dbStatus.isConnected && (
+            <div className="db-status-details">
+                <span className="connection-dot bg-danger"></span>
+                <small className="text-muted">Connection failed</small>
+            </div>
         )}
       </div>
     </div>

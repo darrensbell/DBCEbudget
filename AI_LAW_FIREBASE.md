@@ -65,7 +65,7 @@
   ```txt
   // Compliance: AI_LAW v1 — modularity caps observed, no unrequested features, styles scoped.
 
-  9. Prohibited behaviours
+ ## 9. Prohibited behaviours
   •	No global styling beyond resets and tokens.
   •	No large files that exceed caps.
   •	No speculative helpers, abstractions, or patterns not requested.
@@ -73,7 +73,7 @@
   •	No auto-wiring of routes, state, or services without instruction.
   ```
 
-10. Overrides
+## 10. Overrides
     • The user may override any rule in this file. Overrides must be explicit and written. Verbal or implied context is not sufficient.
 
         {
