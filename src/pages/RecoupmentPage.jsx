@@ -3,17 +3,7 @@ import { useParams } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 import Scenario from "../components/Scenario";
 import "../styles/Recoupment.css";
-
-const formatCurrency = (value) => {
-    if (typeof value !== 'number') return "£0";
-    const formattedValue = new Intl.NumberFormat('en-GB', {
-        style: 'currency',
-        currency: 'GBP',
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
-    }).format(value);
-    return value < 0 ? `-${formattedValue.replace('-', '')}` : formattedValue;
-};
+import { formatCurrency } from "../lib/currency";
 
 function debounce(func, delay) {
   let timeout;
@@ -329,13 +319,13 @@ function RecoupmentPage() {
                         <th scope="row">Show Operating Costs</th>
                          {allCapacities.sort((a,b) => b-a).map((cap, i) => <td key={i}>{formatCurrency(totalCost)}</td>)}
                     </tr>
-                    <tr className='operating-profit'>
+                    <tr className="operating-profit">
                         <th scope="row">Operating Profit</th>
                         {allCapacities.sort((a,b) => b-a).map((cap, i) => <td key={i}>{formatCurrency(calculateRecoupment(cap).operatingProfit)}</td>)}
                     </tr>
-                    <tr className='producer-profit'>
+                    <tr className="producer-profit">
                         <th scope="row">Total Producer Profit</th>
-                        {allCapacities.sort((a,b) => b-a).map((cap, i) => <td key={i} className={calculateRecoupment(cap).producerProfit < 0 ? 'text-danger' : ''}>{formatCurrency(calculateRecoupment(cap).producerProfit)}</td>)}
+                        {allCapacities.sort((a,b) => b-a).map((cap, i) => <td key={i} className={calculateRecoupment(cap).producerProfit < 0 ? "text-danger" : ""}>{formatCurrency(calculateRecoupment(cap).producerProfit)}</td>)}
                     </tr>
                     <tr className="total-recouped">
                         <th scope="row">TOTAL % RECOUPED @ 100% CAPACITY:</th>

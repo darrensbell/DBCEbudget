@@ -1,0 +1,93 @@
+.budget-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 40px); /* Adjust for content padding */
+}
+
+.budget-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 10px;
+  background-color: #f4f3ef; /* Match body background */
+  position: sticky;
+  top: 0;
+  z-index: 1001;
+}
+
+.budget-table-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.budget-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.budget-table th,
+.budget-table td {
+  padding: 0.5rem 0.75rem;
+  vertical-align: middle;
+  text-align: left;
+  border: 1px solid #dee2e6;
+}
+
+.budget-table thead th {
+  background-color: #343a40;
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: sticky;
+  top: 0; /* Sticking to the top of the container */
+  z-index: 999;
+}
+
+.summary-group-header td {
+  background-color: #343a40;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.department-header td {
+  background-color: #e9ecef;
+  font-weight: bold;
+}
+
+.budget-table tbody tr:hover {
+  background-color: #f1f3f5;
+}
+
+.delete-icon {
+  color: #dc3545;
+  cursor: pointer;
+  text-align: center;
+}
+
+.delete-icon:hover {
+  color: #a71d2a;
+}
+
+.editable-cell input,
+.editable-cell select {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.9rem;
+}
+
+.grand-total-row td {
+  font-size: 1.1rem;
+  font-weight: bold;
+  background-color: #f8f9fa;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 1.5rem;
+}

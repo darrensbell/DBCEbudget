@@ -43,7 +43,7 @@ function Budget() {
         setBudgetItems(budgetData);
       } catch (error) {
         console.error("Error fetching data:", error);
-        setError(`Failed to load budget data: ${error.message}`);
+        setError(`Failed to load budget data: ${JSON.stringify(error, null, 2)}`);
       } finally {
         setLoading(false);
       }
@@ -109,16 +109,14 @@ function Budget() {
     const groupOrder = [];
     let grandTotal = 0;
 
-    // budgetItems is already sorted by ID. We iterate through it to create groups
-    // while preserving the overall order.
     budgetItems.forEach((item) => {
       const key = item.summary_group || "Uncategorized";
       if (!grouped[key]) {
         grouped[key] = { items: [], subtotal: 0 };
-        groupOrder.push(key); // Add group to order array only when it first appears
+        groupOrder.push(key);
       }
       const itemTotal = (item.number || 0) * (item.rate || 0);
-      grouped[key].items.push(item); // Items are added in their natural (ID) order
+      grouped[key].items.push(item);
       grouped[key].subtotal += itemTotal;
       grandTotal += itemTotal;
     });
@@ -127,7 +125,7 @@ function Budget() {
   }, [budgetItems]);
 
   if (loading) return <div className="loading-spinner">Loading...</div>;
-  if (error) return <div className="alert alert-danger">{error}</div>;
+  if (error) return <div className="alert alert-danger"><pre>{error}</pre></div>;
   if (!show) return <div>Show not found.</div>;
 
   return (

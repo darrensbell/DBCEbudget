@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
 import { FaPlus, FaEdit, FaTrash, FaSave } from "react-icons/fa";
 import "../styles/Settings.css";
+import { formatCurrency } from "../lib/currency";
 
 function VenueSettings() {
   const [venues, setVenues] = useState([]);
@@ -70,14 +71,13 @@ function VenueSettings() {
 
   const handleAddVenue = async () => {
     setError(null);
-    const total_sellable = calculateSellable(newVenue);
-    const venueData = { ...newVenue, total_sellable };
-
-    const validationError = validateVenue(venueData);
+    const validationError = validateVenue(newVenue);
     if (validationError) {
       setError(validationError);
       return;
     }
+
+    const { total_sellable, ...venueData } = newVenue;
 
     const { data, error } = await supabase
       .from("dbce_venue")
@@ -87,7 +87,7 @@ function VenueSettings() {
       console.error("Error adding venue:", error);
       setError("Failed to add venue.");
     } else {
-      setVenues([data[0], ...venues]);
+      fetchVenues(); // Refetch to get the generated value
       setNewVenue({
         venue_name: "",
         city: "",
@@ -104,14 +104,13 @@ function VenueSettings() {
 
   const handleUpdateVenue = async (id) => {
     setError(null);
-    const total_sellable = calculateSellable(editingVenue);
-    const venueData = { ...editingVenue, total_sellable };
-
-    const validationError = validateVenue(venueData);
+    const validationError = validateVenue(editingVenue);
     if (validationError) {
       setError(validationError);
       return;
     }
+
+    const { total_sellable, created_at, ...venueData } = editingVenue;
 
     const { data, error } = await supabase
       .from("dbce_venue")
@@ -122,7 +121,7 @@ function VenueSettings() {
       console.error("Error updating venue:", error);
       setError("Failed to update venue.");
     } else {
-      setVenues(venues.map((v) => (v.id === id ? data[0] : v)));
+      fetchVenues(); // Refetch to get the generated value
       setEditingVenue(null);
     }
   };
@@ -142,7 +141,7 @@ function VenueSettings() {
     setError(null);
   };
 
-  const renderInputField = (key, placeholder) => (
+  const renderInputField = (key, placeholder, isEditing) => (
     <input
       type={
         key.includes("capacity") ||
@@ -157,10 +156,10 @@ function VenueSettings() {
       }
       className="form-control"
       placeholder={placeholder}
-      value={editingVenue ? editingVenue[key] : newVenue[key]}
+      value={isEditing ? editingVenue[key] : newVenue[key]}
       onChange={(e) => {
         const value = e.target.value;
-        if (editingVenue) {
+        if (isEditing) {
           setEditingVenue({ ...editingVenue, [key]: value });
         } else {
           setNewVenue({ ...newVenue, [key]: value });
@@ -172,47 +171,46 @@ function VenueSettings() {
   const renderRow = (venue) => {
     const isEditing = editingVenue?.id === venue.id;
     const currentData = isEditing ? editingVenue : venue;
-    const totalSellable = calculateSellable(currentData);
 
     return (
       <tr key={venue.id}>
         <td>
           {isEditing
-            ? renderInputField("venue_name", "Venue Name")
+            ? renderInputField("venue_name", "Venue Name", true)
             : venue.venue_name}
         </td>
-        <td>{isEditing ? renderInputField("city", "City") : venue.city}</td>
+        <td>{isEditing ? renderInputField("city", "City", true) : venue.city}</td>
         <td>
           {isEditing
-            ? renderInputField("total_capacity", "Total Capacity")
+            ? renderInputField("total_capacity", "Total Capacity", true)
             : venue.total_capacity}
         </td>
         <td>
           {isEditing
-            ? renderInputField("seat_kills", "Seat Kills")
+            ? renderInputField("seat_kills", "Seat Kills", true)
             : venue.seat_kills}
         </td>
-        <td>{isEditing ? renderInputField("comps", "Comps") : venue.comps}</td>
+        <td>{isEditing ? renderInputField("comps", "Comps", true) : venue.comps}</td>
         <td>
           {isEditing
-            ? renderInputField("producer_holds", "Producer Holds")
+            ? renderInputField("producer_holds", "Producer Holds", true)
             : venue.producer_holds}
         </td>
-        <td>{totalSellable}</td>
+        <td>{venue.total_sellable}</td>
         <td>
           {isEditing
-            ? renderInputField("venue_rental", "Venue Rental")
-            : venue.venue_rental}
+            ? renderInputField("venue_rental", "Venue Rental", true)
+            : formatCurrency(venue.venue_rental)}
         </td>
         <td>
           {isEditing
-            ? renderInputField("extra_show_fee", "Extra Show Fee")
-            : venue.extra_show_fee}
+            ? renderInputField("extra_show_fee", "Extra Show Fee", true)
+            : formatCurrency(venue.extra_show_fee)}
         </td>
         <td>
           {isEditing
-            ? renderInputField("hourly_extra_rate", "Hourly Extra Rate")
-            : venue.hourly_extra_rate}
+            ? renderInputField("hourly_extra_rate", "Hourly Extra Rate", true)
+            : formatCurrency(venue.hourly_extra_rate)}
         </td>
         <td className="text-right">
           {isEditing ? (
@@ -251,6 +249,13 @@ function VenueSettings() {
     );
   };
 
+  const renderLabeledInput = (key, label) => (
+    <div className="form-group">
+      <label>{label}</label>
+      {renderInputField(key, label, false)}
+    </div>
+  );
+
   return (
     <div className="card">
       <div className="card-header">
@@ -259,15 +264,15 @@ function VenueSettings() {
       <div className="card-body">
         <h5>Add New Venue</h5>
         <div className="add-item-form-grid">
-          {renderInputField("venue_name", "Venue Name")}
-          {renderInputField("city", "City")}
-          {renderInputField("total_capacity", "Total Capacity")}
-          {renderInputField("seat_kills", "Seat Kills")}
-          {renderInputField("comps", "Comps")}
-          {renderInputField("producer_holds", "Producer Holds")}
-          {renderInputField("venue_rental", "Venue Rental ($)")}
-          {renderInputField("extra_show_fee", "Extra Show Fee ($)")}
-          {renderInputField("hourly_extra_rate", "Hourly Extra Rate ($)")}
+          {renderLabeledInput("venue_name", "Venue Name")}
+          {renderLabeledInput("city", "City")}
+          {renderLabeledInput("total_capacity", "Total Capacity")}
+          {renderLabeledInput("seat_kills", "Seat Kills")}
+          {renderLabeledInput("comps", "Comps")}
+          {renderLabeledInput("producer_holds", "Producer Holds")}
+          {renderLabeledInput("venue_rental", "Venue Rental (£)")}
+          {renderLabeledInput("extra_show_fee", "Extra Show Fee (£)")}
+          {renderLabeledInput("hourly_extra_rate", "Hourly Extra Rate (£)")}
         </div>
         <button
           className="btn btn-primary btn-round mt-3"
