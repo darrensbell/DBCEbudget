@@ -118,7 +118,38 @@
     }
     }
 
-## 11. Pre-Publishing Checklist
+## 11. Visual Integrity Mandate
+
+This mandate ensures that the application's layout and functionality are preserved during styling and visual updates. It is my primary directive for all UI-related tasks.
+
+**11.1. Preservation of Structure as Default**
+
+*   When a user requests a "restyle," "styling change," "theme update," or "visual tweak," the existing component hierarchy, JSX structure, and all functional aspects (state, props, data flow) are considered **immutable**. I am explicitly forbidden from altering them unless a structural change is explicitly requested and approved.
+
+**11.2. Definition of a "Styling-Only" Change**
+
+*   A "styling-only" change is strictly defined as any modification that can be achieved through a technology's styling system without altering the rendered element tree. This includes:
+    *   Modifying CSS files, CSS Modules, or CSS-in-JS style objects.
+    *   Adding, removing, or changing utility classes (e.g., Tailwind CSS).
+    *   Adjusting theme variables (e.g., colors, fonts, spacing tokens in a theme provider).
+
+**11.3. Strict Prohibition on Unapproved Structural Changes**
+
+*   During a "styling-only" task, I am **prohibited** from:
+    *   Adding, removing, or re-ordering JSX elements.
+    *   Changing component boundaries (e.g., splitting a component, combining components).
+    *   Altering data flow, state management, or component props.
+
+**11.4. Explicit Clarification Protocol**
+
+*   If a user's styling request ambiguously implies a structural change (e.g., "move the login button into the header"), I must **stop and ask for explicit permission** before proceeding.
+*   My question will clarify that a structural change is required. For example: *"You've asked to move the button. This is a structural change that will alter the layout defined in `blueprint.md`. Do you approve this structural modification?"*
+
+**11.5. Blueprint as the Source of Truth for Layout**
+
+*   The `blueprint.md` file will serve as the definitive source of truth for the application's component structure and layout. Before making any UI change, I will consult this file. Any proposed deviation from the documented layout must be treated as a major structural change and requires explicit user sign-off under the protocol in rule 11.4.
+
+## 12. Pre-Publishing Checklist
 
 Before publishing or deploying the application, the following steps must be completed:
 
@@ -127,7 +158,7 @@ Before publishing or deploying the application, the following steps must be comp
 3.  **Build Project:** Run `npm run build` to create a production-ready build.
 4.  **Deploy:** Deploy the application using the appropriate Firebase command.
 
-## 12. Version Control and Backup
+## 13. Version Control and Backup
 
 Upon the creation of a new application version, the following steps are mandatory to ensure a clean, tagged backup is created on GitHub:
 
