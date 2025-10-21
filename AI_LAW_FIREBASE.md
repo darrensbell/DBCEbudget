@@ -22,10 +22,11 @@
 - Break code into focused modules. One responsibility per file wherever practical.
 - Hard caps, unless explicitly overridden by the user in writing:
   - `*.ts` / `*.tsx` / `*.js` / `*.jsx` files: **≤ 250 lines**.
-  - React components: **≤ 200 lines** per component.
-  - Individual functions: **≤ 60 lines**.
+  - React components: **≤ 300 lines** per component.
+  - Individual functions: **≤ 90 lines**.
   - Style files (CSS Modules, scoped CSS, or tokens): **≤ 150 lines** each.
 - If a file approaches a cap, create a smaller sibling module and import it.
+- Configuration and auto-generated files are exempt from caps unless edited manually.
 
 ## 4. Styling policy
 
@@ -33,6 +34,7 @@
 - Allowed globals: reset/normalise, CSS variables for design tokens, and minimal root layout scaffolding only.
 - Prefer **CSS Modules** or **colocated styles** per component. If a design system is used, import specific pieces, do not re-export kitchen-sink bundles.
 - All styling and folders must live in dedicated files and folders. No dumping ground files.
+- framework-generated globals are permitted if untouched by the AI
 
 ## 5. Folders and naming
 
@@ -117,6 +119,7 @@
     "requires_explicit_user_text": true
     }
     }
+```
 
 ## 11. Visual Integrity Mandate
 
@@ -167,6 +170,27 @@ Upon the creation of a new application version, the following steps are mandator
 3.  **Push to GitHub:** The new commit must be pushed to the `main` branch of the `origin` remote.
 
 This process ensures that every version is securely backed up and can be easily restored.
+
+## 14. Refactoring & Validation Protocol
+
+This protocol is mandatory for any task involving modifications to more than one file, to prevent broken import paths, typographical errors, and other integration failures.
+
+**Step 1: Create a Public Refactoring Map (`refactor-map.md`)**
+
+*   Before modifying any files, a temporary file named `refactor-map.md` must be created in the project root.
+*   This map serves as a public checklist and must explicitly list every file operation to be performed (CREATE, MODIFY, DELETE).
+*   No file modifications shall begin until this map is created. The protocol must follow the map precisely.
+
+**Step 2: Incremental Execution & Immediate Linting**
+
+*   Changes from the `refactor-map.md` will be executed in small, logical batches.
+*   After every single file write operation, `eslint . --fix` must be run immediately to catch syntax errors and basic typos at the source.
+
+**Step 3: The "Full Project Integrity Build"**
+
+*   After a logical phase of file modifications is complete, a full production build (`npm run build`) must be executed.
+*   The Vite build process is the definitive validation tool. A successful build with zero errors is required to consider the refactoring phase complete.
+*   A refactoring phase is considered a **failure** until `npm run build` succeeds. The success or failure of the build command, and any resulting errors, must be reported to the user.
 
 By operating in this workspace, you agree to these terms. Failure to comply is a defect. You must stop and await instruction if compliance is not possible within these constraints.
 
