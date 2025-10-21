@@ -250,12 +250,17 @@ function Productions() {
               <hr />
               <div className="d-flex justify-content-between align-items-center mb-2">
                 <h5 className="mb-0">Shows</h5>
-                <button
-                  className="btn btn-success btn-round btn-sm"
-                  onClick={() => openShowModal(production.id)}
-                >
-                  <FaPlus /> Add Show
-                </button>
+                <div>
+                  <Link to={`/productions/${production.id}/recoupment`} className="btn btn-secondary btn-sm me-2">
+                    Recoupment
+                  </Link>
+                  <button
+                    className="btn btn-success btn-round btn-sm"
+                    onClick={() => openShowModal(production.id)}
+                  >
+                    <FaPlus /> Add Show
+                  </button>
+                </div>
               </div>
               {production.shows.length > 0 ? (
                 <ul className="list-unstyled mb-0">

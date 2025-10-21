@@ -1,216 +1,34 @@
 # Project Blueprint
 
-This document serves as the single source of truth for the application's architecture, features, and design decisions.
+## Overview
 
-## 1. Overview
+This project is a web application designed to help theatre producers and investors analyze the financial viability of their productions. The application provides a detailed recoupment analysis, allowing users to create and compare different financial scenarios. The goal is to provide a powerful and user-friendly tool for financial planning and decision-making in the theatre industry.
 
-A web-based budget tool for DBCE, designed with the "Paper Dashboard" aesthetic. It interfaces with a Supabase backend and provides a clean, modern dashboard for managing budget-related data.
+## Project Outline
 
----
+### Core Features
 
-## 2. Implemented Features
+*   **Recoupment Analysis:** The core feature of the application is the recoupment analysis page. This page provides a detailed breakdown of the production's costs, revenues, and profits at different capacity levels.
+*   **Scenario Management:** Users can create, edit, delete, and switch between different financial scenarios. This allows them to compare the impact of different assumptions on the production's financial performance.
+*   **Data Persistence:** The application uses Supabase to store and retrieve data, ensuring that the user's work is saved automatically.
+*   **Accessibility:** The application is designed to be accessible to all users, including those who rely on screen readers. The application uses ARIA attributes and other accessibility best practices to ensure that it is usable by everyone.
 
-### "Paper Dashboard" Design
+### Implemented Styles and Designs
 
-The application's visual identity is based on the "Paper Dashboard React" template by Creative Tim. This includes:
+*   **Layout:** The application uses a sidebar layout, with the main content area on the right.
+*   **Styling:** The application uses Bootstrap for styling, with a custom CSS file for additional styles.
+*   **Components:** The application is built with React and uses a number of custom components, including:
+    *   `Sidebar`: The sidebar component provides navigation to the different pages of the application.
+    *   `Productions`: The productions page displays a list of the user's productions.
+    *   `Settings`: The settings page allows the user to configure the application.
+    *   `Budget`: The budget page allows the user to create and manage the production's budget.
+    *   `RecoupmentPage`: The recoupment page provides a detailed recoupment analysis.
+    *   `Scenario`: The scenario component allows the user to manage the different financial scenarios.
+    *   `ScenarioModal`: The scenario modal allows the user to create and edit scenarios.
+    *   `ConfirmModal`: The confirm modal is a generic modal for confirming actions.
 
-- A dark sidebar for navigation.
-- A light, textured main content area.
-- A card-based layout for displaying data.
+### Future Plans
 
-### Icon-Driven Sidebar
-
-The sidebar has been transformed into a full navigation menu:
-
-- **Icons:** Uses the `react-icons` library for clear, intuitive navigation links (e.g., Productions, Settings).
-- **Active State:** The currently selected page is highlighted.
-- **Database Status:** Retains the at-a-glance database connection indicator at the bottom.
-
-### Dashboard View
-
-The main content area is designed as a dashboard hub:
-
-- **Header:** Includes a title ("Dashboard") and a control area with a search bar and icons for notifications and settings.
-- **Stat Cards:** A grid of four placeholder "Stat Cards" displays key metrics with icons, titles, values, and footers, mimicking the reference design.
-
----
-
-## 3. Styling & Component Libraries
-
-- **React-Bootstrap:** A component library for building responsive and modern UIs.
-- **React-Icons:** For iconography throughout the application.
-
-### Design System ("Paper Dashboard")
-
-- **Color Palette:**
-  - Sidebar Background: `#1E1E2D`
-  - Content Background: `#F4F3EF`
-  - Text (Dark): `#333`
-  - Text (Light): `#fff`
-- **Typography:**
-  - Primary Font: "Helvetica Neue", Arial, sans-serif.
-
----
-
-## 4. Database Schema (Supabase)
-
-This section outlines the database structure for the project. The database is a Supabase PostgreSQL instance.
-
-### Table: `dbce_categories`
-
-- **Type:** BASE TABLE
-
-| Column Name    | Data Type                | Nullable | Default |
-| -------------- | ------------------------ | -------- | ------- |
-| id             | text                     | NO       | null    |
-| summary_group  | text                     | NO       | null    |
-| department     | text                     | NO       | null    |
-| sub_department | text                     | YES      | null    |
-| line_item      | text                     | NO       | null    |
-| created_at     | timestamp with time zone | NO       | now()   |
-
-### Table: `dbce_production`
-
-- **Type:** BASE TABLE
-
-| Column Name            | Data Type                | Nullable | Default |
-| ---------------------- | ------------------------ | -------- | ------- |
-| id                     | text                     | NO       | null    |
-| production_artist_name | text                     | NO       | null    |
-| agent                  | text                     | YES      | null    |
-| agent_email_address    | text                     | YES      | null    |
-| created_at             | timestamp with time zone | NO       | now()   |
-
-### Table: `dbce_show`
-
-- **Type:** BASE TABLE
-
-| Column Name   | Data Type                | Nullable | Default                            |
-| ------------- | ------------------------ | -------- | ---------------------------------- |
-| id            | text                     | NO       | null                               |
-| production_id | text                     | NO       | null                               |
-| local_date    | date                     | NO       | null                               |
-| local_time    | time without time zone   | NO       | '19:30:00'::time without time zone |
-| show_utc      | timestamp with time zone | YES      | null                               |
-| status        | text                     | NO       | 'option'::text                     |
-| show_number   | integer                  | NO       | 1                                  |
-| notes         | text                     | YES      | null                               |
-| created_at    | timestamp with time zone | NO       | now()                              |
-| venue_id      | text                     | YES      | null                               |
-
-### Table: `dbce_show_budget_item`
-
-- **Type:** BASE TABLE
-
-| Column Name    | Data Type                | Nullable | Default |
-| -------------- | ------------------------ | -------- | ------- |
-| id             | bigint                   | NO       | null    |
-| show_id        | text                     | NO       | null    |
-| summary_group  | text                     | NO       | null    |
-| department     | text                     | NO       | null    |
-| sub_department | text                     | YES      | null    |
-| line_item      | text                     | NO       | null    |
-| unit           | text                     | YES      | null    |
-| number         | integer                  | YES      | 1       |
-| rate           | numeric                  | YES      | 0       |
-| created_at     | timestamp with time zone | NO       | now()   |
-| details        | USER-DEFINED             | YES      | null    |
-
-### Table: `dbce_venue`
-
-- **Type:** BASE TABLE
-
-| Column Name       | Data Type                | Nullable | Default |
-| ----------------- | ------------------------ | -------- | ------- |
-| id                | text                     | NO       | null    |
-| venue_name        | text                     | NO       | null    |
-| city              | text                     | NO       | null    |
-| total_capacity    | integer                  | NO       | null    |
-| seat_kills        | integer                  | NO       | 0       |
-| comps             | integer                  | NO       | 0       |
-| producer_holds    | integer                  | NO       | 0       |
-| total_sellable    | integer                  | YES      | null    |
-| created_at        | timestamp with time zone | NO       | now()   |
-| venue_rental      | numeric                  | YES      | 0       |
-| extra_show_fee    | numeric                  | YES      | 0       |
-| hourly_extra_rate | numeric                  | YES      | 0       |
-
----
-
-## 5. Development Plan: Productions, Shows, and Budgets
-
-This section outlines the development plan for the core functionality of the application.
-
-### Phase 1: Production Management
-
-- **Goal:** Create, read, and update productions.
-- **UI:**
-  - Display productions as individual cards on the "Productions" page.
-  - Each card will show the production's name and other key details.
-  - Include a "+" button to add a new production.
-  - Each production card will have an "Edit" button.
-
-### Phase 2: Show Management
-
-- **Goal:** Manage shows associated with each production.
-- **UI:**
-  - Inside each production card, display a list of its shows.
-  - Each show will have its own set of controls: "Edit" and "Remove".
-  - An "Add Show" button will be available within each production card.
-- **Core Logic:**
-  - When a new show is created, a corresponding budget will be automatically generated.
-  - This budget will be a direct copy of the master list of categories from the `dbce_categories` table, with each category becoming a line item in the new budget.
-
-### Phase 3: Interactive Budget View
-
-- **Goal:** Provide an editable, spreadsheet-like interface for managing a show's budget.
-- **UI:**
-  - Clicking a "Budget" button on a show will open a new view.
-  - This view will resemble an Excel spreadsheet, with rows representing budget line items.
-  - All fields in a budget line (e.g., unit, number, rate) will be editable.
-  - The budget view will include options to add or remove line items.
-- **Data Flow:**
-  - All changes made in the budget view will be saved back to the `dbce_show_budget_item` table in real-time or via a "Save" button.
-
----
-
-## 6. Tooling and Code Quality
-
-### ESLint
-
-- **Purpose:** To statically analyze the code to quickly find problems.
-- **Configuration:** The project is configured with ESLint to enforce code quality and a consistent style.
-- **Usage:** Run `eslint . --fix` to automatically fix many linting issues.
-
-### Prettier
-
-- **Purpose:** To maintain a consistent code format across the entire codebase.
-- **Configuration:** Prettier is installed as a development dependency.
-- **Usage:** Run `npx prettier . --write` to format all project files.
-
----
-
-## 7. Development Process
-
-### Pre-Publishing Checklist
-
-To ensure code quality and a stable deployment, a pre-publishing checklist has been codified in `AI_LAW_FIREBASE.md`. Before any deployment, the following automated steps are required:
-
-1.  **Run Linter:** Execute `eslint . --fix`.
-2.  **Run Prettier:** Execute `npx prettier . --write`.
-
-This process is enforced to maintain a high standard of code quality for all deployments.
-
----
-
-## 8. Version Control and Backup
-
-To ensure project stability and maintain a clear history of changes, a strict version control and backup process is in place. For every new version of the application, a clean, tagged backup is automatically created on GitHub.
-
-### The Process
-
-1.  **Update Version:** The `version` number in the `package.json` file is incremented.
-2.  **Commit:** All changes are committed to the local Git repository with a message formatted as `Version X.Y.Z`.
-3.  **Push to GitHub:** The new commit is pushed to the `main` branch of the project's GitHub repository.
-
-This automated process guarantees that every version is securely backed up and easily accessible.
+*   **Improve Accessibility:** Continue to improve the accessibility of the application by adding more ARIA attributes, improving the color contrast, and testing the application with screen readers.
+*   **Add More Features:** Add more features to the application, such as the ability to export the recoupment analysis to a PDF file, the ability to share the analysis with other users, and the ability to track the production's actual financial performance against the budget.
+*   **Improve the UI:** Continue to improve the user interface of the application by adding more data visualizations, improving the layout, and making the application more intuitive and user-friendly.

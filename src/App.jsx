@@ -3,6 +3,7 @@ import Sidebar from "./components/Sidebar";
 import Productions from "./pages/Productions";
 import Settings from "./pages/Settings";
 import Budget from "./pages/Budget";
+import RecoupmentPage from "./pages/RecoupmentPage";
 import "./styles/HomePage.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -17,6 +18,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Navigate to="/productions" />} />
             <Route path="/productions" element={<Productions />} />
+            <Route path="/productions/:productionId/recoupment" element={<RecoupmentPage />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/budget/:showId" element={<Budget />} />
           </Routes>
