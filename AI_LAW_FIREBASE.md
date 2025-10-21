@@ -119,7 +119,6 @@
     "requires_explicit_user_text": true
     }
     }
-```
 
 ## 11. Visual Integrity Mandate
 
@@ -191,6 +190,12 @@ This protocol is mandatory for any task involving modifications to more than one
 *   After a logical phase of file modifications is complete, a full production build (`npm run build`) must be executed.
 *   The Vite build process is the definitive validation tool. A successful build with zero errors is required to consider the refactoring phase complete.
 *   A refactoring phase is considered a **failure** until `npm run build` succeeds. The success or failure of the build command, and any resulting errors, must be reported to the user.
+
+## 15. Database Schema Integrity
+
+- **Schema as Source of Truth:** The `database_schema.md` file is the single source of truth for all database table and column names.
+- **Immutability of Names:** You are strictly prohibited from changing, renaming, or assuming alternative names for any existing database table or column listed in `database_schema.md`.
+- **Authorized Changes Only:** Modifications to the database schema, including adding, changing, or removing columns, are only permitted when explicitly required for a new, user-requested function. Any such change must be documented in `database_schema.md` before any code modifications are made.
 
 By operating in this workspace, you agree to these terms. Failure to comply is a defect. You must stop and await instruction if compliance is not possible within these constraints.
 
